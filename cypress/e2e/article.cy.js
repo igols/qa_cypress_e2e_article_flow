@@ -7,8 +7,8 @@ describe('Article Flow', () => {
     cy.task('generateUser').then((generatedUser) => {
       user = generatedUser;
       cy.login(user.email, user.username, user.password);
+      cy.visit('/', { timeout: 90000, failOnStatusCode: false });
     });
-    cy.visit('/', { timeout: 90000, failOnStatusCode: false });
   });
 
   it('should create a new article', () => {
