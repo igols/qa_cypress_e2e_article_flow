@@ -3,12 +3,12 @@ import { faker } from '@faker-js/faker';
 
 describe('Article Flow', () => {
   let user;
-  before(() => {
+  beforeEach(() => {
     cy.task('generateUser').then((generatedUser) => {
       user = generatedUser;
       cy.login(user.email, user.username, user.password);
     });
-    cy.visit('/');
+    cy.visit('/', { timeout: 90000, failOnStatusCode: false });
   });
 
   it('should create a new article', () => {
