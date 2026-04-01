@@ -21,7 +21,7 @@ describe('Article Flow', () => {
       .type(articleDescription);
     cy.get('textarea[placeholder="Write your article (in markdown)"]')
       .type(articleBody);
-    cy.get('button[type="button"]').contains('Publish Articale').click();
+    cy.get('button[type="button"]').contains('Publish Article').click();
     cy.get('h1').should('contain', articleTitle);
     cy.get('.article-content').should('contain', articleBody);
   });
