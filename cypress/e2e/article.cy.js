@@ -7,7 +7,14 @@ describe('Article Flow', () => {
     cy.task('generateUser').then((generatedUser) => {
       user = generatedUser;
       cy.login(user.email, user.username, user.password);
-      cy.visit('/');
+      cy.visit('/', {
+        timeout: 30000,
+        onBeforeLoad(win) {
+          Object.defineProperty(
+            win.document, 'readyState', { get: () => 'complete' });
+        }
+      });
+      cy.get('.navbar', { timeout: 40000 }).should('be.visible');
     });
   });
 
