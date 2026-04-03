@@ -8,9 +8,10 @@ describe('Article Flow', () => {
       user = generatedUser;
       cy.login(user.email, user.username, user.password);
       cy.visit('/', {
-        timeout: 120000,
+        timeout: 90000,
         failOnStatusCode: false
       });
+      cy.get('nav', { timeout: 30000 }).should('be.visible');
     });
   });
 
