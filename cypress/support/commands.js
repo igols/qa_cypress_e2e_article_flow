@@ -44,14 +44,15 @@ Cypress.Commands.add('login', (email, username, password) => {
     };
     window.localStorage.setItem('user', JSON.stringify(user));
     cy.setCookie('auth', response.body.user.token);
+    return user;
   });
 });
 
 Cypress.Commands.add('createArticle', (title, description, body) => {
-  cy.getCookie('auth').then((token) => {
+  return cy.getCookie('auth').then((token) => {
     const authToken = token.value;
 
-    cy.request({
+    return cy.request({
       method: 'POST',
       url: '/api/articles',
       body: {
