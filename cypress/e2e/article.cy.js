@@ -7,10 +7,9 @@ describe('Article Flow', () => {
     cy.task('generateUser').then((generatedUser) => {
       user = generatedUser;
       cy.login(user.email, user.username, user.password);
-      cy.visit('/', { timeout: 120000, failOnStatusCode: false,
-        onBeforeLoad(win) {
-          win.addEventListener('load', () => {}, true);
-        }
+      cy.visit('/', {
+        timeout: 120000,
+        failOnStatusCode: false
       });
     });
   });
@@ -25,7 +24,7 @@ describe('Article Flow', () => {
       .type(articleDescription);
     cy.get('textarea[placeholder="Write your article (in markdown)"]')
       .type(articleBody);
-    cy.get('button[type="button"]').contains('Publish Article').click();
+    cy.contains('button', 'Publish Article').click();
     cy.get('h1').should('contain', articleTitle);
     cy.get('.article-content').should('contain', articleBody);
   });
@@ -35,8 +34,7 @@ describe('Article Flow', () => {
     cy.createArticle(titleToDelete, 'Desc', 'Body');
     cy.visit(`/@${user.username}`);
     cy.contains('h1', titleToDelete).click();
-    cy.get('.btn-outline-danger')
-      .contains('Delete Article').first().click();
+    cy.contains('button', 'Delete Article').click();
     cy.visit(`/@${user.username}`);
     cy.contains(titleToDelete).should('not.exist');
   });
